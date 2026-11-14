@@ -5,146 +5,121 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hunger-stop</title>
 <style>
-:root { --bg:#f4f6f9; --card:#fff; --txt:#222; --sub:#666; --brd:#ddd; }
-body.dark { --bg:#121212; --card:#1e1e1e; --txt:#f1f1f1; --sub:#aaa; --brd:#333; }
-* { box-sizing:border-box; margin:0; padding:0; font-family:Arial,sans-serif; }
-body { background:var(--bg); color:var(--txt); padding-bottom:80px; }
-header { background:linear-gradient(135deg,#ff5200,#e23744); color:#fff; padding:12px; }
-.htop { display:flex; justify-content:space-between; align-items:center; max-width:600px; margin:auto; }
-.brand { display:flex; align-items:center; gap:8px; }
-.logo { background:#fff; width:38px; height:38px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:22px; }
-.brand h1 { font-size:19px; }
-.brand p { font-size:11px; opacity:.9; }
-.cbtn { background:rgba(255,255,255,.2); color:#fff; border:1px solid #fff; padding:5px 8px; border-radius:14px; font-size:11px; font-weight:bold; }
-.cbtn.wa { background:#25D366; border:none; }
-.tbar { background:#1a1a1a; color:#ffd700; padding:6px; font-size:12px; font-weight:bold; text-align:center; }
-.tbox { background:#e23744; color:#fff; padding:2px 6px; border-radius:4px; }
-.sbox { padding:10px; background:var(--card); border-bottom:1px solid var(--brd); }
-.sbox input { width:100%; max-width:600px; display:block; margin:auto; padding:8px 14px; border:1px solid var(--brd); background:var(--bg); color:var(--txt); border-radius:20px; }
-.tabs { display:flex; overflow-x:auto; background:var(--card); padding:8px 12px; gap:6px; border-bottom:1px solid var(--brd); }
-.tbtn { padding:6px 12px; border:none; border-radius:16px; background:var(--bg); color:var(--txt); font-weight:bold; font-size:12px; white-space:nowrap; }
-.tbtn.active { background:#ff5200; color:#fff; }
-.sec { display:none; padding:12px; max-width:600px; margin:auto; }
-.sec.active { display:block; }
-.grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-.card { position:relative; background:var(--card); padding:24px 8px 12px; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,.08); text-decoration:none; color:var(--txt); text-align:center; border:1px solid var(--brd); }
-.card.hot { border:2px solid #28a745; }
-.otag { position:absolute; top:0; right:0; background:#e23744; color:#fff; font-size:9px; font-weight:bold; padding:3px 6px; border-radius:0 8px 0 8px; }
-.otag.grn { background:#28a745; }
-.ttag { position:absolute; top:4px; left:6px; font-size:9px; color:var(--sub); font-weight:bold; }
-.ico { font-size:26px; display:block; margin-bottom:4px; }
-.card strong { font-size:14px; display:block; }
-.card small { font-size:11px; color:var(--sub); display:block; }
-.odet { margin-top:5px; font-size:10px; font-weight:bold; color:#28a745; background:rgba(40,167,69,.12); padding:2px 6px; border-radius:5px; display:inline-block; }
-.box { background:var(--card); padding:14px; border-radius:10px; margin-bottom:12px; border:1px solid var(--brd); }
-.box input, .box select { width:100%; padding:9px; margin-bottom:8px; border:1px solid var(--brd); background:var(--bg); color:var(--txt); border-radius:6px; }
-.abtn { width:100%; padding:10px; background:#28a745; color:#fff; border:none; border-radius:6px; font-weight:bold; }
-.wdisp { font-size:16px; font-weight:bold; color:#ff5200; background:rgba(255,82,0,.1); padding:12px; border-radius:8px; margin:10px 0; border:2px dashed #ff5200; }
-.citem { padding:10px; border-radius:8px; border:1px solid var(--brd); margin-top:8px; display:flex; justify-content:space-between; align-items:center; }
-.citem.best { border:2px solid #28a745; background:rgba(40,167,69,.1); }
-.ccard { background:var(--card); padding:12px; border-radius:8px; margin-bottom:8px; border:1px solid var(--brd); border-left:4px solid #28a745; display:flex; justify-content:space-between; align-items:center; }
-.ccard.bnk { border-left-color:#007bff; }
-.cpbtn { background:#28a745; color:#fff; border:none; padding:6px 10px; border-radius:5px; font-size:11px; font-weight:bold; }
-.ilist { list-style:none; margin-top:8px; }
-.ilist li { display:flex; justify-content:space-between; padding:8px 4px; border-bottom:1px solid var(--brd); font-size:13px; }
-.bnav { position:fixed; bottom:0; left:0; right:0; background:var(--card); display:flex; justify-content:space-around; padding:7px 0; border-top:1px solid var(--brd); }
-.nitem { text-align:center; font-size:10px; color:var(--sub); border:none; background:none; }
-.nitem.active { color:#ff5200; font-weight:bold; }
-.nitem span { display:block; font-size:16px; }
+:root{--bg:#f4f6f9;--card:#fff;--txt:#222;--sub:#666;--brd:#ddd}
+body.dark{--bg:#121212;--card:#1e1e1e;--txt:#f1f1f1;--sub:#aaa;--brd:#333}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+body{background:var(--bg);color:var(--txt);padding-bottom:80px}
+header{background:linear-gradient(135deg,#ff5200,#e23744);color:#fff;padding:12px}
+.htop{display:flex;justify-content:space-between;align-items:center;max-width:600px;margin:auto}
+.brand{display:flex;align-items:center;gap:8px}
+.logo{background:#fff;width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px}
+.cbtn{background:rgba(255,255,255,.2);color:#fff;border:1px solid #fff;padding:5px 8px;border-radius:14px;font-size:11px;font-weight:bold}
+.cbtn.wa{background:#25D366;border:none}
+.tbar{background:#1a1a1a;color:#ffd700;padding:6px;font-size:12px;font-weight:bold;text-align:center}
+.tbox{background:#e23744;color:#fff;padding:2px 6px;border-radius:4px}
+.sbox{padding:10px;background:var(--card);border-bottom:1px solid var(--brd)}
+.sbox input{width:100%;max-width:600px;display:block;margin:auto;padding:8px 14px;border:1px solid var(--brd);background:var(--bg);color:var(--txt);border-radius:20px}
+.tabs{display:flex;overflow-x:auto;background:var(--card);padding:8px 12px;gap:6px;border-bottom:1px solid var(--brd)}
+.tbtn{padding:6px 12px;border:none;border-radius:16px;background:var(--bg);color:var(--txt);font-weight:bold;font-size:12px;white-space:nowrap}
+.tbtn.active{background:#ff5200;color:#fff}
+.sec{display:none;padding:12px;max-width:600px;margin:auto}
+.sec.active{display:block}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.card{position:relative;background:var(--card);padding:24px 8px 12px;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,.08);text-decoration:none;color:var(--txt);text-align:center;border:1px solid var(--brd)}
+.card.hot{border:2px solid #28a745}
+.otag{position:absolute;top:0;right:0;background:#e23744;color:#fff;font-size:9px;font-weight:bold;padding:3px 6px;border-radius:0 8px 0 8px}
+.otag.grn{background:#28a745}
+.ttag{position:absolute;top:4px;left:6px;font-size:9px;color:var(--sub);font-weight:bold}
+.ico{font-size:26px;display:block;margin-bottom:4px}
+.card strong{font-size:14px;display:block}
+.card small{font-size:11px;color:var(--sub);display:block}
+.odet{margin-top:5px;font-size:10px;font-weight:bold;color:#28a745;background:rgba(40,167,69,.12);padding:2px 6px;border-radius:5px;display:inline-block}
+.box{background:var(--card);padding:14px;border-radius:10px;margin-bottom:12px;border:1px solid var(--brd)}
+.box input,.box select{width:100%;padding:9px;margin-bottom:8px;border:1px solid var(--brd);background:var(--bg);color:var(--txt);border-radius:6px}
+.abtn{width:100%;padding:10px;background:#28a745;color:#fff;border:none;border-radius:6px;font-weight:bold}
+.wdisp{font-size:16px;font-weight:bold;color:#ff5200;background:rgba(255,82,0,.1);padding:12px;border-radius:8px;margin:10px 0;border:2px dashed #ff5200}
+.citem{padding:10px;border-radius:8px;border:1px solid var(--brd);margin-top:8px;display:flex;justify-content:space-between;align-items:center}
+.citem.best{border:2px solid #28a745;background:rgba(40,167,69,.1)}
+.ccard{background:var(--card);padding:12px;border-radius:8px;margin-bottom:8px;border:1px solid var(--brd);border-left:4px solid #28a745;display:flex;justify-content:space-between;align-items:center}
+.ccard.bnk{border-left-color:#007bff}
+.cpbtn{background:#28a745;color:#fff;border:none;padding:6px 10px;border-radius:5px;font-size:11px;font-weight:bold}
+.ilist{list-style:none;margin-top:8px}
+.ilist li{display:flex;justify-content:space-between;padding:8px 4px;border-bottom:1px solid var(--brd);font-size:13px}
+.bnav{position:fixed;bottom:0;left:0;right:0;background:var(--card);display:flex;justify-content:space-around;padding:7px 0;border-top:1px solid var(--brd)}
+.nitem{text-align:center;font-size:10px;color:var(--sub);border:none;background:none}
+.nitem.active{color:#ff5200;font-weight:bold}
+.nitem span{display:block;font-size:16px}
 </style>
 </head>
 <body>
-
-<header>
-  <div class="htop">
-    <div class="brand">
-      <div class="logo">🍔</div>
-      <div><h1>Hunger-stop</h1><p id="subT">सर्व ऑफर्स आणि तुलना एकाच ठिकाणी</p></div>
-    </div>
-    <div>
-      <button class="cbtn" onclick="tLang()">EN/म</button>
-      <button class="cbtn" onclick="tDark()" id="thBtn">🌙</button>
-      <button class="cbtn wa" onclick="shApp()">📲</button>
-    </div>
-  </div>
-</header>
-
+<header><div class="htop"><div class="brand"><div class="logo">🍔</div><div><h1 style="font-size:19px">Hunger-stop</h1><p id="subT" style="font-size:11px">सर्व ऑफर्स आणि तुलना एकाच ठिकाणी</p></div></div><div><button class="cbtn" onclick="tLang()">EN/म</button> <button class="cbtn" onclick="tDark()" id="thBtn">🌙</button> <button class="cbtn wa" onclick="shApp()">📲</button></div></div></header>
 <div class="tbar">⚡ फ्लॅश डील: <span class="tbox" id="cd">01:59:59</span></div>
 <div class="sbox"><input type="text" id="sIn" onkeyup="fApps()" placeholder="अ‍ॅप किंवा ऑफर शोधा..."></div>
-
 <div id="sHome" class="sec active">
-  <div class="tabs">
-    <button class="tbtn active" onclick="fCat('all',this)">सर्व</button>
-    <button class="tbtn" onclick="fCat('top',this)">🔥 जास्त ऑफर्स</button>
-    <button class="tbtn" onclick="fCat('food',this)">🍔 जेवण</button>
-    <button class="tbtn" onclick="fCat('groc',this)">🥦 किराणा</button>
-    <button class="tbtn" onclick="fCat('med',this)">💊 औषधे</button>
-    <button class="tbtn" onclick="fCat('ride',this)">🚕 प्रवास</button>
-  </div>
+<div class="tabs"><button class="tbtn active" onclick="fCat('all',this)">सर्व</button><button class="tbtn" onclick="fCat('top',this)">🔥 जास्त ऑफर्स</button><button class="tbtn" onclick="fCat('food',this)">🍔 जेवण</button><button class="tbtn" onclick="fCat('groc',this)">🥦 किराणा</button><button class="tbtn" onclick="fCat('med',this)">💊 औषधे</button><button class="tbtn" onclick="fCat('ride',this)">🚕 प्रवास</button></div>
+<div class="grid" id="aGrid" style="margin-top:12px">
+<a href="https://eatsure.com" target="_blank" class="card hot" data-c="food" data-t="1"><span class="ttag">⏱️ 25m</span><span class="otag grn">🔥 50% OFF</span><span class="ico">🍱</span><strong>EatSure</strong><small>बिर्याणी व थाली</small><span class="odet">कोड: FIRSTTIME</span></a>
+<a href="https://swiggy.com" target="_blank" class="card hot" data-c="food" data-t="1"><span class="ttag">⏱️ 30m</span><span class="otag">60% सूट</span><span class="ico">🍕</span><strong>Swiggy</strong><small>फूड डिलिव्हरी</small><span class="odet">+ फ्री डिलिव्हरी</span></a>
+<a href="https://zomato.com" target="_blank" class="card" data-c="food" data-t="0"><span class="ttag">⏱️ 30m</span><span class="otag">₹125 OFF</span><span class="ico">🍔</span><strong>Zomato</strong><small>जेवण ऑर्डर</small><span class="odet">कोड: WELCOME50</span></a>
+<a href="https://dominos.co.in" target="_blank" class="card" data-c="food" data-t="0"><span class="ttag">⏱️ 20m</span><span class="otag">₹99 पिझ्झा</span><span class="ico">🧀</span><strong>Domino's</strong><small>गरमागरम पिझ्झा</small><span class="odet">2 पिझ्झा @ ₹99</span></a>
+<a href="https://zeptonow.com" target="_blank" class="card hot" data-c="groc" data-t="1"><span class="ttag">⚡ 10m</span><span class="otag grn">🔥 ₹100 कॅशबॅक</span><span class="ico">🛒</span><strong>Zepto</strong><small>झटपट किराणा</small><span class="odet">फ्री डिलिव्हरी</span></a>
+<a href="https://blinkit.com" target="_blank" class="card" data-c="groc" data-t="0"><span class="ttag">⚡ 10m</span><span class="otag">40% सूट</span><span class="ico">🥦</span><strong>Blinkit</strong><small>भाज्या व दूध</small><span class="odet">कोड: FIRST100</span></a>
+<a href="https://bigbasket.com" target="_blank" class="card" data-c="groc" data-t="0"><span class="ttag">⏱️ 30m</span><span class="otag">30% बचत</span><span class="ico">🧺</span><strong>BigBasket</strong><small>मासिक किराणा</small><span class="odet">सुपर सेव्हर</span></a>
+<a href="https://jiomart.com" target="_blank" class="card" data-c="groc" data-t="0"><span class="ttag">⏱️ 45m</span><span class="otag">स्वस्त दर</span><span class="ico">🛍️</span><strong>JioMart</strong><small>घरगुती वस्तू</small><span class="odet">फ्री डिलिव्हरी</span></a>
+<a href="https://1mg.com" target="_blank" class="card hot" data-c="med" data-t="1"><span class="ttag">⏱️ 60m</span><span class="otag grn">🔥 20% सूट</span><span class="ico">💊</span><strong>Tata 1mg</strong><small>औषधे व टेस्ट</small><span class="odet">कोड: CARE20</span></a>
+<a href="https://pharmeasy.in" target="_blank" class="card" data-c="med" data-t="0"><span class="ttag">⏱️ 2h</span><span class="otag">23% सूट</span><span class="ico">🩺</span><strong>PharmEasy</strong><small>ऑनलाईन मेडिकल</small><span class="odet">कोड: NEWCARE</span></a>
+<a href="https://olacabs.com" target="_blank" class="card" data-c="ride" data-t="0"><span class="ttag">⚡ 5m</span><span class="otag">₹50 सूट</span><span class="ico">🚕</span><strong>Ola</strong><small>कॅब व रिक्षा</small><span class="odet">पहिली राईड बचत</span></a>
+<a href="https://uber.com" target="_blank" class="card" data-c="ride" data-t="0"><span class="ttag">⚡ 5m</span><span class="otag">25% OFF</span><span class="ico">🚗</span><strong>Uber</strong><small>जलद प्रवास</small><span class="odet">ऑटो व कॅब</span></a>
+</div></div>
 
-  <div class="grid" id="aGrid" style="margin-top:12px">
-    <a href="https://eatsure.com" target="_blank" class="card hot" data-c="food" data-t="1">
-      <span class="ttag">⏱️ 25m</span><span class="otag grn">🔥 50% OFF</span>
-      <span class="ico">🍱</span><strong>EatSure</strong><small>बिर्याणी व थाली</small>
-      <span class="odet">कोड: FIRSTTIME</span>
-    </a>
-    <a href="https://swiggy.com" target="_blank" class="card hot" data-c="food" data-t="1">
-      <span class="ttag">⏱️ 30m</span><span class="otag">60% सूट</span>
-      <span class="ico">🍕</span><strong>Swiggy</strong><small>फूड डिलिव्हरी</small>
-      <span class="odet">+ फ्री डिलिव्हरी</span>
-    </a>
-    <a href="https://zomato.com" target="_blank" class="card" data-c="food" data-t="0">
-      <span class="ttag">⏱️ 30m</span><span class="otag">₹125 OFF</span>
-      <span class="ico">🍔</span><strong>Zomato</strong><small>जेवण ऑर्डर</small>
-      <span class="odet">कोड: WELCOME50</span>
-    </a>
-    <a href="https://dominos.co.in" target="_blank" class="card" data-c="food" data-t="0">
-      <span class="ttag">⏱️ 20m</span><span class="otag">₹99 पिझ्झा</span>
-      <span class="ico">🧀</span><strong>Domino's</strong><small>गरमागरम पिझ्झा</small>
-      <span class="odet">2 पिझ्झा @ ₹99</span>
-    </a>
-    <a href="https://zeptonow.com" target="_blank" class="card hot" data-c="groc" data-t="1">
-      <span class="ttag">⚡ 10m</span><span class="otag grn">🔥 ₹100 कॅशबॅक</span>
-      <span class="ico">🛒</span><strong>Zepto</strong><small>झटपट किराणा</small>
-      <span class="odet">फ्री डिलिव्हरी</span>
-    </a>
-    <a href="https://blinkit.com" target="_blank" class="card" data-c="groc" data-t="0">
-      <span class="ttag">⚡ 10m</span><span class="otag">40% सूट</span>
-      <span class="ico">🥦</span><strong>Blinkit</strong><small>भाज्या व दूध</small>
-      <span class="odet">कोड: FIRST100</span>
-    </a>
-    <a href="https://bigbasket.com" target="_blank" class="card" data-c="groc" data-t="0">
-      <span class="ttag">⏱️ 30m</span><span class="otag">30% बचत</span>
-      <span class="ico">🧺</span><strong>BigBasket</strong><small>मासिक किराणा</small>
-      <span class="odet">सुपर सेव्हर</span>
-    </a>
-    <a href="https://jiomart.com" target="_blank" class="card" data-c="groc" data-t="0">
-      <span class="ttag">⏱️ 45m</span><span class="otag">स्वस्त दर</span>
-      <span class="ico">🛍️</span><strong>JioMart</strong><small>घरगुती वस्तू</small>
-      <span class="odet">फ्री डिलिव्हरी</span>
-    </a>
-    <a href="https://1mg.com" target="_blank" class="card hot" data-c="med" data-t="1">
-      <span class="ttag">⏱️ 60m</span><span class="otag grn">🔥 20% सूट</span>
-      <span class="ico">💊</span><strong>Tata 1mg</strong><small>औषधे व टेस्ट</small>
-      <span class="odet">कोड: CARE20</span>
-    </a>
-    <a href="https://pharmeasy.in" target="_blank" class="card" data-c="med" data-t="0">
-      <span class="ttag">⏱️ 2h</span><span class="otag">23% सूट</span>
-      <span class="ico">🩺</span><strong>PharmEasy</strong><small>ऑनलाईन मेडिकल</small>
-      <span class="odet">कोड: NEWCARE</span>
-    </a>
-    <a href="https://olacabs.com" target="_blank" class="card" data-c="ride" data-t="0">
-      <span class="ttag">⚡ 5m</span><span class="otag">₹50 सूट</span>
-      <span class="ico">🚕</span><strong>Ola</strong><small>कॅब व रिक्षा</small>
-      <span class="odet">पहिली राईड बचत</span>
-    </a>
-    <a href="https://uber.com" target="_blank" class="card" data-c="ride" data-t="0">
-      <span class="ttag">⚡ 5m</span><span class="otag">25% OFF</span>
-      <span class="ico">🚗</span><strong>Uber</strong><small>जलद प्रवास</small>
-      <span class="odet">ऑटो व कॅब</span>
-    </a>
-  </div>
+<div id="sComp" class="sec">
+<div class="box" style="text-align:center"><h3>🎰 आज काय खाऊ?</h3><div class="wdisp" id="wRes">🍽️ बटण दाबून पदार्थ निवडा</div><button class="abtn" style="background:#ff5200" onclick="spin()">🎲 चक्र फिरवा</button></div>
+<div class="box"><h3 style="margin-bottom:8px">⚖️ सर्वात स्वस्त अ‍ॅप तुलना</h3><select id="oType"><option value="food">🍔 जेवण</option><option value="groc">🥦 किराणा</option><option value="med">💊 औषधे</option></select><input type="number" id="oAmt" placeholder="रक्कम टाका (उदा. 350)"><button class="abtn" onclick="comp()">तुलना करा</button><div id="cRes"></div></div>
+</div>
 
-  <div class="box" style="margin-top:14px;border:1px dashed #ff8c00;text-align:center">
-    <h4 style="color:#ff5200">🏪 तुमचे दुकान/टिफिन सेवा येथे जोडा!</h4>
-    <p style="font-size:12px;margin:6px 0">जाहिरातीसाठी व थेट WhatsApp ऑर्डर्ससाठी संपर्क करा.</p>
+<div id="sCoup" class="sec">
+<h3 style="margin-bottom:8px">🎟️ आजचे कूपन कोड्स</h3>
+<div class="ccard"><div><h4>EatSure - 50% सूट</h4><p>कोड: <b>FIRSTTIME</b></p></div><button class="cpbtn" onclick="cp('FIRSTTIME')">कॉपी</button></div>
+<div class="ccard"><div><h4>Zomato - ₹125 सूट</h4><p>कोड: <b>WELCOME50</b></p></div><button class="cpbtn" onclick="cp('WELCOME50')">कॉपी</button></div>
+<div class="ccard"><div><h4>Swiggy - फ्री डिलिव्हरी</h4><p>कोड: <b>TRYNEW</b></p></div><button class="cpbtn" onclick="cp('TRYNEW')">कॉपी</button></div>
+<div class="ccard"><div><h4>Blinkit/Zepto - ₹100 कॅशबॅक</h4><p>कोड: <b>FIRST100</b></p></div><button class="cpbtn" onclick="cp('FIRST100')">कॉपी</button></div>
+<h3 style="margin:12px 0 8px">💳 बँक कार्ड ऑफर्स</h3>
+<div class="ccard bnk"><div><h4>HDFC कार्ड्स - 15% सूट</h4><p>Swiggy व Zomato वर लागू</p></div></div>
+<div class="ccard bnk"><div><h4>SBI कार्ड्स - ₹150 सूट</h4><p>Blinkit वर ₹999 खरेदीवर</p></div></div>
+</div>
+
+<div id="sTool" class="sec">
+<div class="box"><h3 style="margin-bottom:8px">📝 माझी किराणा यादी</h3><input type="text" id="lIn" placeholder="वस्तू लिहा (उदा. दूध, साखर)"><button class="abtn" style="background:#007bff" onclick="addL()">यादीत जोडा</button><ul class="ilist" id="sList"></ul></div>
+<div class="box"><h3 style="margin-bottom:8px">💰 मासिक खर्च ट्रॅकर</h3><input type="text" id="eT" placeholder="काय ऑर्डर केले?"><input type="number" id="eA" placeholder="रक्कम (₹)"><button class="abtn" style="background:#ff5200" onclick="addE()">खर्च नोंदवा</button><p style="margin-top:10px;font-weight:bold;text-align:center">एकूण खर्च: ₹<span id="tot">0</span></p><ul class="ilist" id="eList"></ul></div>
+</div>
+
+<div id="sInfo" class="sec">
+<div class="box" style="font-size:13px;line-height:1.5"><h3>ℹ️ माहिती व डिस्क्लेमर</h3><br><p><b>Hunger-stop</b> हे सर्व डिलिव्हरी सेवा आणि ऑफर्स एकाच ठिकाणी दाखवणारे प्लॅटफॉर्म आहे. आम्ही Zomato, Swiggy, Blinkit किंवा इतर कोणत्याही कंपनीचे अधिकृत मालक नाही.</p><br><button class="abtn" style="background:#25D366" onclick="shApp()">📲 WhatsApp वर शेअर करा</button></div>
+</div>
+
+<div class="bnav">
+<button class="nitem active" onclick="tab('sHome',this)"><span>🏠</span><b id="n1">होम</b></button>
+<button class="nitem" onclick="tab('sComp',this)"><span>⚖️</span><b id="n2">तुलना</b></button>
+<button class="nitem" onclick="tab('sCoup',this)"><span>🎟️</span><b id="n3">कूपन्स</b></button>
+<button class="nitem" onclick="tab('sTool',this)"><span>📝</span><b id="n4">यादी/खर्च</b></button>
+<button class="nitem" onclick="tab('sInfo',this)"><span>ℹ️</span><b id="n5">माहिती</b></button>
+</div>
+
+<script>
+function tDark(){document.body.classList.toggle('dark');document.getElementById('thBtn').innerText=document.body.classList.contains('dark')?'☀️':'🌙'}
+let mr=1;function tLang(){mr=!mr;document.getElementById('subT').innerText=mr?"सर्व ऑफर्स आणि तुलना एकाच ठिकाणी":"All Offers & Comparison Hub";document.getElementById('n1').innerText=mr?"होम":"Home";document.getElementById('n2').innerText=mr?"तुलना":"Compare";document.getElementById('n3').innerText=mr?"कूपन्स":"Coupons";document.getElementById('n4').innerText=mr?"यादी/खर्च":"List/Cost";document.getElementById('n5').innerText=mr?"माहिती":"Info"}
+let tl=7199;setInterval(()=>{if(tl<=0)tl=7199;tl--;let h=String(Math.floor(tl/3600)).padStart(2,'0'),m=String(Math.floor((tl%3600)/60)).padStart(2,'0'),s=String(tl%60).padStart(2,'0');document.getElementById('cd').innerText=h+':'+m+':'+s},1000);
+function tab(id,b){document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nitem').forEach(x=>x.classList.remove('active'));b.classList.add('active')}
+function fCat(c,b){document.querySelectorAll('.tbtn').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('#aGrid .card').forEach(k=>{k.style.display=(c=='all'||(c=='top'&&k.dataset.t=='1')||k.dataset.c==c)?'block':'none'})}
+function fApps(){let v=document.getElementById('sIn').value.toLowerCase();document.querySelectorAll('#aGrid .card').forEach(k=>{k.style.display=k.innerText.toLowerCase().includes(v)?'block':'none'})}
+function spin(){const f=["🍗 हैदराबादी बिर्याणी (EatSure)","🍕 चीज पिझ्झा (Domino's)","🍔 क्रिस्पी बर्गर (Swiggy)","🥘 स्पेशल थाळी (Zomato)","🍨 आईस्क्रीम (Zepto)"];document.getElementById('wRes').innerText=f[Math.floor(Math.random()*f.length)]}
+function comp(){let t=document.getElementById('oType').value,a=parseFloat(document.getElementById('oAmt').value),r=document.getElementById('cRes');if(!a||a<=0){alert('रक्कम टाका');return}let o=t=='food'?[{n:'EatSure',s:a>=249?Math.min(Math.round(a*.3),120):0},{n:'Swiggy',s:a>=149?Math.min(Math.round(a*.2),80)+20:0},{n:'Zomato',s:a>=199?Math.min(Math.round(a*.25),100):0}]:t=='groc'?[{n:'Zepto',s:a>=199?60:20},{n:'JioMart',s:Math.round(a*.12)},{n:'Blinkit',s:a>=299?50:15}]:[{n:'Tata 1mg',s:Math.round(a*.2)},{n:'PharmEasy',s:Math.round(a*.18)}];o.sort((x,y)=>(a-x.s)-(a-y.s));r.innerHTML=o.map((x,i)=>`<div class="citem ${i==0?'best':''}"><div><b>${x.n}</b> ${i==0?'🏆':''}</div><div><b>₹${a-x.s}</b> <small style="color:#28a745">(बचत ₹${x.s})</small></div></div>`).join('')}
+function cp(c){navigator.clipboard.writeText(c);alert('कॉपी झाले: '+c)}
+function shApp(){window.open("https://wa.me"+encodeURIComponent("🍔 सर्व ऑफर्स एकाच ठिकाणी: https://github.io"),"_blank")}
+let sl=JSON.parse(localStorage.getItem('hsL'))||[];function rL(){document.getElementById('sList').innerHTML=sl.map((x,i)=>`<li><span onclick="sl[${i}].d=!sl[${i}].d;localStorage.setItem('hsL',JSON.stringify(sl));rL()">${x.d?'✅':'⬜'} ${x.t}</span><b onclick="sl.splice(${i},1);localStorage.setItem('hsL',JSON.stringify(sl));rL()" style="color:red">✖</b></li>`).join('')}
+function addL(){let v=document.getElementById('lIn').value.trim();if(v){sl.push({t:v,d:0});localStorage.setItem('hsL',JSON.stringify(sl));document.getElementById('lIn').value='';rL()}}rL();
+let el=JSON.parse(localStorage.getItem('hsE'))||[];function rE(){let tot=0;document.getElementById('eList').innerHTML=el.map(x=>{tot+=x.a;return`<li><span>${x.t}</span><b>₹${x.a}</b></li>`}).join('');document.getElementById('tot').innerText=tot}
+function addE(){let t=document.getElementById('eT').value.trim(),a=parseFloat(document.getElementById('eA').value);if(t&&a>0){el.push({t:t,a:a});localStorage.setItem('hsE',JSON.stringify(el));document.getElementById('eT').value='';document.getElementById('eA').value='';rE()}}rE();
+</script>
+</body>
+</html>
