@@ -3,28 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ऑल-इन-वन डिलिव्हरी हब</title>
+    <title>Hunger-stop - ऑल-इन-वन डिलिव्हरी आणि कूपन हब</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; background-color: #f4f4f9; text-align: center; }
-        header { background-color: #ff5200; color: white; padding: 15px; font-size: 20px; font-weight: bold; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; max-width: 500px; margin: auto; }
-        .card { background: white; padding: 25px 15px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-decoration: none; color: #333; font-weight: bold; font-size: 18px; }
-        .zomato { border-top: 5px solid #e23744; }
-        .swiggy { border-top: 5px solid #fc8019; }
-        .blinkit { border-top: 5px solid #f8cb46; }
-        .zepto { border-top: 5px solid #3b006a; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; }
+        body { background-color: #f4f6f9; color: #333; padding-bottom: 75px; }
+        
+        /* Header */
+        header { background: linear-gradient(135deg, #ff5200, #e23744); color: white; padding: 18px 15px; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
+        header h1 { font-size: 22px; margin-bottom: 4px; }
+        header p { font-size: 13px; opacity: 0.9; }
+
+        /* Search Bar */
+        .search-box { padding: 12px 15px; background: white; border-bottom: 1px solid #eee; }
+        .search-box input { width: 100%; padding: 10px 14px; border: 1px solid #ddd; border-radius: 25px; font-size: 14px; outline: none; }
+
+        /* Category Tabs */
+        .tabs { display: flex; overflow-x: auto; background: white; padding: 10px 15px; gap: 10px; border-bottom: 1px solid #eee; }
+        .tab-btn { padding: 8px 16px; border: none; border-radius: 20px; background: #eee; color: #444; font-weight: bold; font-size: 13px; cursor: pointer; white-space: nowrap; }
+        .tab-btn.active { background: #ff5200; color: white; }
+
+        /* Sections */
+        .section { display: none; padding: 15px; max-width: 600px; margin: auto; }
+        .section.active { display: block; }
+
+        /* App Grid */
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .card { background: white; padding: 20px 12px; border-radius: 12px; box-shadow: 0 3px 8px rgba(0,0,0,0.08); text-decoration: none; color: #222; text-align: center; display: block; transition: transform 0.2s; }
+        .card:active { transform: scale(0.97); }
+        .card .icon { font-size: 30px; margin-bottom: 8px; display: block; }
+        .card strong { font-size: 16px; display: block; }
+        .card small { font-size: 12px; color: #666; }
+
+        /* Coupon Cards */
+        .coupon-card { background: white; padding: 15px; border-radius: 10px; margin-bottom: 12px; border-left: 5px solid #28a745; box-shadow: 0 2px 6px rgba(0,0,0,0.06); display: flex; justify-content: space-between; align-items: center; }
+        .coupon-info h4 { font-size: 15px; color: #111; margin-bottom: 4px; }
+        .coupon-info p { font-size: 12px; color: #666; }
+        .copy-btn { background: #28a745; color: white; border: none; padding: 8px 12px; border-radius: 6px; font-weight: bold; font-size: 12px; cursor: pointer; }
+
+        /* Expense Tracker */
+        .tracker-box { background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .tracker-box input, .tracker-box select { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 8px; }
+        .add-btn { width: 100%; padding: 12px; background: #ff5200; color: white; border: none; border-radius: 8px; font-weight: bold; font-size: 15px; cursor: pointer; }
+        .total-banner { background: #fff3cd; padding: 12px; border-radius: 8px; text-align: center; font-weight: bold; margin: 15px 0; color: #856404; }
+        .expense-list { list-style: none; }
+        .expense-list li { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; font-size: 14px; }
+
+        /* Disclaimer Box */
+        .disclaimer { background: white; padding: 15px; border-radius: 10px; font-size: 13px; line-height: 1.6; color: #555; }
+        .disclaimer h3 { color: #222; margin-bottom: 8px; }
+
+        /* Bottom Navigation */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #ddd; box-shadow: 0 -2px 5px rgba(0,0,0,0.05); }
+        .nav-item { text-align: center; font-size: 12px; color: #666; cursor: pointer; border: none; background: none; }
+        .nav-item.active { color: #ff5200; font-weight: bold; }
+        .nav-item span { display: block; font-size: 18px; margin-bottom: 2px; }
     </style>
 </head>
 <body>
 
-<header>सर्व डिलिव्हरी अ‍ॅप्स एकाच ठिकाणी</header>
+<header>
+    <h1>🍔 Hunger-stop</h1>
+    <p>जेवण, किराणा, औषधे आणि कूपन्स एकाच ठिकाणी</p>
+</header>
 
-<div class="grid">
-    <a href="https://zomato.com" target="_blank" class="card zomato">🍔 Zomato<br><small>जेवण ऑर्डर करा</small></a>
-    <a href="https://swiggy.com" target="_blank" class="card swiggy">🍕 Swiggy<br><small>फूड आणि इंस्टामार्ट</small></a>
-    <a href="https://blinkit.com" target="_blank" class="card blinkit">🥦 Blinkit<br><small>१० मिनिटांत किराणा</small></a>
-    <a href="https://zeptonow.com" target="_blank" class="card zepto">🛒 Zepto<br><small>झटपट डिलिव्हरी</small></a>
+<div class="search-box">
+    <input type="text" id="searchInput" onkeyup="filterApps()" placeholder="अ‍ॅप शोधा (उदा. Zomato, Blinkit, 1mg, Ola)...">
 </div>
 
-</body>
-</html>
+<!-- मुख्य विभाग (Apps Section) -->
+<div id="appsSection" class="section active">
+    <div class="tabs">
+        <button class="tab-btn active" onclick="filterCategory('all', this)">सर्व (All)</button>
+        <button class="tab-btn" onclick="filterCategory('food', this)">🍔 जेवण</button>
+        <button class="tab-btn" onclick="filterCategory('grocery', this)">🥦 किराणा</button>
+        <button class="tab-btn" onclick="filterCategory('med', this)">💊 औषधे</button>
+        <button class="tab-btn" onclick="filterCategory('ride', this)">🚕 प्रवास</button>
+    </div>
+
+    <div class="grid" id="appGrid" style="margin-top: 15px;">
+        <!-- Food -->
+        <a href="https://zomato.com" target="_blank" class="card" data-cat="food"><span class="icon">🍔</span><strong>Zomato</strong><small>जेवण ऑर्डर करा</small></a>
+        <a href="https://swiggy.com" target="_blank" class="card" data-cat="food"><span class="icon">🍕</span><strong>Swiggy</strong><small>फूड आणि डिलिव्हरी</small></a>
+        <a href="https://dominos.co.in" target="_blank" class="card" data-cat="food"><span class="icon">🧀</span><strong>Domino's</strong><small>गरमागरम पिझ्झा</small></a>
+        <a href="https://eatsure.com" target="_blank" class="card" data-cat="food"><span class="icon">🍱</span><strong>EatSure</strong><small>बिर्याणी आणि थाली</small></a>
+
+        <!-- Grocery -->
+        <a href="https://blinkit.com" target="_blank" class="card" data-cat="grocery"><span class="icon">🥦</span><strong>Blinkit</strong><small>१० मिनिटांत किराणा</small></a>
+        <a href="https://zeptonow.com" target="_blank" class="card" data-cat="grocery"><span class="icon">🛒</span><strong>Zepto</strong><small>झटपट डिलिव्हरी</small></a>
+        <a href="https://bigbasket.com" target="_blank" class="card" data-cat="grocery"><span class="icon">🧺</span><strong>BigBasket</strong><small>ताज्या भाज्या व किराणा</small></a>
+        <a href="https://jiomart.com" target="_blank" class="card" data-cat="grocery"><span class="icon">🛍️</span><strong>JioMart</strong><small>स्वस्त किराणा</small></a>
+
+        <!-- Medicine -->
+        <a href="https://1mg.com" target="_blank" class="card" data-cat="med"><span class="icon">💊</span><strong>Tata 1mg</strong><small>औषधे व लॅब टेस्ट</small></a>
+        <a href="https://pharmeasy.in" target="_blank" class="card" data-cat="med"><span class="icon">🩺</span><strong>PharmEasy</strong><small>सवलतीच्या दरात औषधे</small></a>
+
+        <!-- Rides -->
+        <a href="https://olacabs.com" target="_blank" class="card" data-cat="ride"><span class="icon">🚕</span><strong>Ola</strong><small>कॅब आणि रिक्षा</small></a>
+        <a href="https://uber.com" target="_blank" class="card" data-cat="ride"><span class="icon">🚗</span><strong>Uber</strong><small>जलद प्रवास</small></a>
+    </div>
+</div>
+
+<!-- कूपन कोड्स विभाग (Coupons Section) -->
+<div id="couponsSection" class="section">
+    <h3 style="margin-bottom: 12px;">🎟️ आजचे टॉप कूपन कोड्स</h3>
+    
+    <div class="coupon-card">
+        <div class="coupon-info">
+            <h4>Zomato - ₹125 पर्यंत सूट</h4>
+            <p>कोड: <strong>WELCOME50</strong> (पहिल्या ऑर्डरवर)</p>
+        </div>
+        <button class="copy-btn" onclick="copyCode('WELCOME50')">कॉपी करा</button>
+    </div>
+
+    <div class="coupon-card">
+        <div class="coupon-info">
+            <h4>Swiggy - मोफत डिलिव्हरी + सूट</h4>
+            <p>कोड: <strong>TRYNEW</strong> (निवडक रेस्टॉरंट्सवर)</p>
+        </div>
+        <button class="copy-btn" onclick="copyCode('TRYNEW')">कॉपी करा</button>
+    </div>
+
+    <div class="coupon-card">
+        <div class="coupon-info">
+            <h4>Blinkit / Zepto - ₹100 कॅशबॅक</h4>
+            <p>कोड: <strong>FIRST100</strong> (₹499 वरील किराणा)</p>
+        </div>
+        <button class="copy-btn" onclick="copyCode('FIRST100')">कॉपी करा</button>
+    </div>
+
+    <div class="coupon-card">
+        <div class="coupon-info">
+            <h4>Tata 1mg - 20% डिस्काउंट</h4>
+            <p>कोड: <strong>CARE20</strong> (सर्व औषधांवर)</p>
+        </div>
+        <button class="copy-btn" onclick="copyCode('CARE20')">कॉपी करा</button>
+    </div>
+</div>
+
+<!-- खर्चाचा हिशोब विभाग (Expense Tracker Section) -->
+<div id="trackerSection" class="section">
+    <h3 style="margin-bottom: 12px;">💰 मासिक ऑर्डर खर्च ट्रॅकर</h3>
+    <div class="tracker-box">
+        <input type="text" id="expTitle" placeholder="काय ऑर्डर केले? (उदा. बिर्याणी, किराणा)">
+        <input type="number" id="expAmount" placeholder="रक्कम टाका (₹)">
+        <button class="add-btn" onclick="addExpense()">खर्च नोंदवा</button>
+        
+        <div class="total-banner">एकूण खर्च: ₹<span id="totalAmount">0</span></div>
+        <ul class="expense-list" id="expenseList"></ul>
+        <button onclick="clearExpenses()" style="margin-top:10px; background:none; border:none; color:red; font-size:12px; cursor:pointer;">सर्व हिशोब पुसा</button>
+    </div>
+</div>
+
+<!-- डिस्क्लेमर आणि प्रायव्हसी विभाग (Disclaimer Section) -->
+<div id="aboutSection" class="section">
+    <div class="disclaimer">
+        <h3>ℹ️ अ‍ॅपबद्दल आणि कायदेशीर माहिती (Disclaimer)</h3>
+        <p><strong>Hunger-stop</strong> हे एक युजर-फ्रेंडली अ‍ॅग्रीगेटर प्लॅटफॉर्म आहे, जे तुम्हाला दैनंदिन गरजेच्या सेवा एकाच ठिकाणी सहज उपलब्ध करून देते.</p><br>
