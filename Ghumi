@@ -1,0 +1,186 @@
+import React, { useState } from 'react';
+import { 
+  StyleSheet, Text, View, TextInput, TouchableOpacity, 
+  Image, ScrollView, ActivityIndicator, Alert, Linking 
+} from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
+
+export default function App() {
+  const [placeName, setPlaceName] = useState('');
+  const = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [travelData, setTravelData] = useState(null);
+
+  // 1. गॅलरीमधून फोटो निवडण्यासाठी फंक्शन
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      quality: 0.7,
+    });
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+      // फोटो अपलोड केल्यावर आपोआप माहिती शोधण्यासाठी:
+      fetchPlaceDetails("फोटोमधील ठिकाण"); 
+    }
+  };
+
+  // 2. ठिकाणाची माहिती गोळा करण्यासाठी फंक्शन (येथे Gemini API जोडता येतो)
+  const fetchPlaceDetails = async (query) => {
+    const searchTarget = query || placeName;
+    if (!searchTarget) {
+      Alert.alert("माहिती भरा", "कृपया ठिकाणाचे नाव लिहा किंवा फोटो अपलोड करा.");
+      return;
+    }
+
+    setLoading(true);
+    
+    // टीप: खऱ्या ॲपमध्ये येथे Google Gemini API आणि Google Places API चा डेटा येईल.
+    // नमुन्यासाठी (Demo) खालील डेटा दाखवला आहे:
+    setTimeout(() => {
+      setTravelData({
+        name: searchTarget.toUpperCase(),
+        description: "हे एक निसर्गरम्य आणि ऐतिहासिक पर्यटन स्थळ आहे. येथे वर्षभर पर्यटकांची गर्दी असते आणि येथील वातावरण अत्यंत आल्हाददायक असते.",
+        photos: [
+          "https://unsplash.com",
+          "https://unsplash.com"
+        ],
+        sightseeing: [
+          "मुख्य किल्ला आणि ऐतिहासिक बुरुज",
+          "सनसेट पॉईंट (सूर्यास्त पाहण्याचे ठिकाण)",
+          "प्राचीन मंदिर आणि तलाव",
+          "निसर्ग उद्यान (Botanical Garden)"
+        ],
+        adventure: [
+          "ट्रेकिंग आणि रॉक क्लायंबिंग",
+          "पॅराग्लायडिंग (हवामानानुसार)",
+          "झिप-लाईन आणि बोटिंग",
+          "नाईट कॅम्पिंग आणि बोनफायर"
+        ],
+        facilities: [
+          "स्वच्छ सार्वजनिक स्वच्छतागृहे",
+          "गाड्यांसाठी सुरक्षित पार्किंग व्यवस्था",
+          "स्थानिक जेवणाची हॉटेल्स आणि रिसॉर्ट्स",
+          "प्रथमोपचार केंद्र आणि गाईड सुविधा"
+        ],
+        costComparison: {
+          ownVehicle: "₹२,५०० ते ₹४,००० (पेट्रोल/डिझेल + टोल खर्च)",
+          publicTransport: "₹८०० ते ₹१,५०० (बस किंवा रेल्वे तिकीट)",
+          travelAgency: "₹४,५०० ते ₹७,००० (ट्रॅव्हल्स पॅकेज - राहणे व जेवणासह)"
+        }
+      });
+      setLoading(false);
+    }, 1500);
+  };
+
+  // 3. थेट Google Maps उघडण्यासाठी फंक्शन
+  const openGoogleMaps = () => {
+    if (!travelData) return;
+    const url = `https://google.com{encodeURIComponent(travelData.name)}`;
+    Linking.openURL(url);
+  };
+
+  return (
+    <ScrollView style={styles.container}>
+      <Text style={styles.header}>🌍 स्मार्ट ट्रॅव्हल गाईड</Text>
+
+      {/* सर्च बॉक्स आणि फोटो बटण */}
+      <View style={styles.searchCard}>
+        <TextInput
+          style={styles.input}
+          placeholder="ठिकाणाचे नाव लिहा (उदा. महाबळेश्वर, गोवा)..."
+          value={placeName}
+          onChangeText={setPlaceName}
+        />
+        
+        <View style={styles.buttonRow}>
+          <TouchableOpacity style={styles.btnPrimary} onPress={() => fetchPlaceDetails()}>
+            <Text style={styles.btnText}>🔍 माहिती शोधा</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.btnSecondary} onPress={pickImage}>
+            <Text style={styles.btnText}>📷 फोटो अपलोड</Text>
+          </TouchableOpacity>
+        </View>
+
+        {image && (
+          <Image source={{ uri: image }} style={styles.uploadedPreview} />
+        )}
+      </View>
+
+      {loading && <ActivityIndicator size="large" color="#0066cc" style={{ marginTop: 20 }} />}
+
+      {/* ठिकाणाची सविस्तर माहिती */}
+      {travelData && !loading && (
+        <View style={styles.resultContainer}>
+          <Text style={styles.placeTitle}>{travelData.name}</Text>
+          <Text style={styles.description}>{travelData.description}</Text>
+
+          {/* चित्रे (Gallery) */}
+          <Text style={styles.sectionTitle}>📸 ठिकाणाची चित्रे</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.photoRow}>
+            {travelData.photos.map((photoUrl, index) => (
+              <Image key={index} source={{ uri: photoUrl }} style={styles.galleryImage} />
+            ))}
+          </ScrollView>
+
+          {/* नकाशा (Map) बटण */}
+          <TouchableOpacity style={styles.mapBtn} onPress={openGoogleMaps}>
+            <Text style={styles.mapBtnText}>🗺️ Google Maps वर रस्ता (Route) पहा</Text>
+          </TouchableOpacity>
+
+          {/* प्रवासाचा खर्च तुलना */}
+          <Text style={styles.sectionTitle}>💰 प्रवासाचा अंदाजे खर्च</Text>
+          <View style={styles.costBox}>
+            <Text style={styles.costItem}>🚗 <Text style={styles.bold}>स्वतःच्या वाहनाने:</Text> {travelData.costComparison.ownVehicle}</Text>
+            <Text style={styles.costItem}>🚌 <Text style={styles.bold}>बस / रेल्वे मार्ग:</Text> {travelData.costComparison.publicTransport}</Text>
+            <Text style={styles.costItem}>🎒 <Text style={styles.bold}>ट्रॅव्हल्स पॅकेजने:</Text> {travelData.costComparison.travelAgency}</Text>
+          </View>
+
+          {/* काय बघण्यासाठी आहे */}
+          <Text style={styles.sectionTitle}>🏛️ पाहण्यासारखी ठिकाणे</Text>
+          {travelData.sightseeing.map((item, idx) => (
+            <Text key={idx} style={styles.listItem}>• {item}</Text>
+          ))}
+
+          {/* ॲडव्हेंचर गोष्टी */}
+          <Text style={styles.sectionTitle}>🧗 ॲडव्हेंचर (Adventure) ॲक्टिव्हिटीज</Text>
+          {travelData.adventure.map((item, idx) => (
+            <Text key={idx} style={styles.listItem}>🔥 {item}</Text>
+          ))}
+
+          {/* उपलब्ध सुविधा */}
+          <Text style={styles.sectionTitle}>🏨 उपलब्ध सुविधा</Text>
+          {travelData.facilities.map((item, idx) => (
+            <Text key={idx} style={styles.listItem}>✅ {item}</Text>
+          ))}
+        </View>
+      )}
+    </ScrollView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: '#f4f6f9', padding: 15, paddingTop: 45 },
+  header: { fontSize: 24, fontWeight: 'bold', textAlign: 'center', color: '#1a237e', marginBottom: 15 },
+  searchCard: { backgroundColor: '#fff', padding: 15, borderRadius: 12, elevation: 3 },
+  input: { borderWidth: 1, borderColor: '#ddd', borderRadius: 8, padding: 12, fontSize: 16, marginBottom: 10 },
+  buttonRow: { flexDirection: 'row', justifyContent: 'space-between' },
+  btnPrimary: { backgroundColor: '#0066cc', padding: 12, borderRadius: 8, flex: 0.48, alignItems: 'center' },
+  btnSecondary: { backgroundColor: '#2e7d32', padding: 12, borderRadius: 8, flex: 0.48, alignItems: 'center' },
+  btnText: { color: '#fff', fontWeight: 'bold', fontSize: 15 },
+  uploadedPreview: { width: '100%', height: 150, borderRadius: 8, marginTop: 10 },
+  resultContainer: { backgroundColor: '#fff', padding: 15, borderRadius: 12, marginTop: 15, marginBottom: 40, elevation: 3 },
+  placeTitle: { fontSize: 22, fontWeight: 'bold', color: '#d84315', marginBottom: 5 },
+  description: { fontSize: 15, color: '#444', lineHeight: 22, marginBottom: 15 },
+  sectionTitle: { fontSize: 18, fontWeight: 'bold', color: '#1a237e', marginTop: 15, marginBottom: 8 },
+  photoRow: { flexDirection: 'row', marginBottom: 10 },
+  galleryImage: { width: 220, height: 140, borderRadius: 10, marginRight: 10 },
+  mapBtn: { backgroundColor: '#ff9800', padding: 14, borderRadius: 8, alignItems: 'center', marginVertical: 10 },
+  mapBtnText: { color: '#fff', fontWeight: 'bold', fontSize: 16 },
+  costBox: { backgroundColor: '#e8f5e9', padding: 12, borderRadius: 8 },
+  costItem: { fontSize: 14, color: '#1b5e20', marginBottom: 6 },
+  bold: { fontWeight: 'bold' },
+  listItem: { fontSize: 15, color: '#333', marginBottom: 5, paddingLeft: 5 }
+});
